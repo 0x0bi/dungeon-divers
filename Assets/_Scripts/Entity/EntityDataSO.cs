@@ -7,12 +7,11 @@ namespace DungeonDivers.Entity
     public class EntityDataSO : ScriptableObject
     {
         [Header("Visualization")]
-        [SerializeField] private BaseEntity prefab;
-        [SerializeField] private Sprite icon;
+        public BaseEntity prefab;
+        public Sprite icon;
 
         [Header("Stats")]
-        [SerializeField]
-        private BaseStats baseStats;
+        public BaseStats baseStats;
     }
 
     [Serializable]
