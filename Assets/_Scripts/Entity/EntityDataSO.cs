@@ -1,19 +1,24 @@
+using System;
 using UnityEngine;
 
 namespace DungeonDivers.Entity
 {
-    public class EntityDataSO : MonoBehaviour
+    [CreateAssetMenu(fileName = "NewEntityData", menuName = "Entity/Data")]
+    public class EntityDataSO : ScriptableObject
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-        
-        }
+        [Header("Visualization")]
+        [SerializeField] private BaseEntity prefab;
+        [SerializeField] private Sprite icon;
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+        [Header("Stats")]
+        [SerializeField]
+        private BaseStats baseStats;
+    }
+
+    [Serializable]
+    public class BaseStats
+    {
+        [SerializeField]
+        private float Health;
     }
 }
