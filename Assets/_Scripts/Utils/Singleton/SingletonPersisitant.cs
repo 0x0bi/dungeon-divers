@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DungeonDivers.Utils
 {
-    public class SingletonPersitant<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class SingletonPersitant<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T instance;
         public static T Instance => instance;
@@ -10,7 +10,7 @@ namespace DungeonDivers.Utils
 
         public void Awake()
         {
-            if (instance != null)
+            if (instance == null)
             {
                 instance = this as T;
                 DontDestroyOnLoad(this);

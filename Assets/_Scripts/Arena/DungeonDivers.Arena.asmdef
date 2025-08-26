@@ -1,7 +1,9 @@
 {
     "name": "DungeonDivers.Arena",
     "rootNamespace": "DungeonDivers.Arena",
-    "references": [],
+    "references": [
+        "GUID:d06c702a30767d14ba182341674ae61c"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
