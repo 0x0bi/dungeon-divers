@@ -1,13 +1,13 @@
 using System;
 using UnityEngine;
 
-namespace DungeonDivers.Entity
+namespace DungeonDivers.Units
 {
     [CreateAssetMenu(fileName = "NewEntityData", menuName = "Units/UnitData")]
-    public class EntityDataSO : ScriptableObject
+    public class UnitDataSO : ScriptableObject
     {
         [Header("Visualization")]
-        public BaseEntity prefab;
+        public BaseUnit prefab;
         public Sprite icon;
 
         [Header("Stats")]

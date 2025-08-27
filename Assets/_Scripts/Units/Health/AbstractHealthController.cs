@@ -1,22 +1,22 @@
 using System;
 using UnityEngine;
 
-namespace DungeonDivers.Entity
+namespace DungeonDivers.Units
 {
-    [RequireComponent(typeof(BaseEntity))]
+    [RequireComponent(typeof(BaseUnit))]
     public abstract class AbstractHealthController : MonoBehaviour
     {
         public abstract float CurrentHealth { get; }
         public abstract float MaxHealth { get; }
 
-        protected BaseEntity entity;
+        protected BaseUnit entity;
 
-        public event EventHandler<BaseEntity> OnEntityDie;
+        public event EventHandler<BaseUnit> OnEntityDie;
         public event EventHandler<float> OnEntityCurrentHealthChange;
 
         protected virtual void Awake()
         {
-            entity = GetComponent<BaseEntity>();
+            entity = GetComponent<BaseUnit>();
         }
 
         public abstract void SetMaxHealth(float maxHP);

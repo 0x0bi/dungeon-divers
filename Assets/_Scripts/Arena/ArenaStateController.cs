@@ -17,7 +17,6 @@ namespace DungeonDivers.Arena
         {
             if (this.arenaData.currentState == nextState) return;
             this.arenaData.currentState = nextState;
-            Debug.Log(arenaData.currentState);
             OnCurrentArenaStateChange.Invoke();
         }
 

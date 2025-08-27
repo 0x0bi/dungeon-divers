@@ -1,6 +1,6 @@
 {
     "name": "DungeonDivers.Entity",
-    "rootNamespace": "DungeonDivers.Entity",
+    "rootNamespace": "DungeonDivers.Units",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

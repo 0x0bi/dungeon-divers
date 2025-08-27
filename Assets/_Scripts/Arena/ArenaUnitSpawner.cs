@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using DungeonDivers.Entity;
+using DungeonDivers.Units;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -65,14 +65,14 @@ namespace DungeonDivers.Arena
             this.arenaData.InstantiatedEnemies = enemies;
         }
 
-        private InstantiatedUnitStruct SpwanUnit(Vector3 spawnPos, BaseEntity prefab, Quaternion rotation)
+        private InstantiatedUnitStruct SpwanUnit(Vector3 spawnPos, BaseUnit prefab, Quaternion rotation)
         {
-            BaseEntity baseEntity = Instantiate(prefab, spawnPos, rotation);
-            AbstractHealthController healthController = baseEntity.GetComponent<AbstractHealthController>();
+            BaseUnit baseUnit = Instantiate(prefab, spawnPos, rotation);
+            AbstractHealthController healthController = baseUnit.GetComponent<AbstractHealthController>();
             healthController.SetCurrentHealth(100);
             healthController.SetMaxHealth(100);
 
-            return InstantiatedUnitStruct.New(baseEntity, healthController);
+            return InstantiatedUnitStruct.New(baseUnit, healthController);
         }
     }
 }

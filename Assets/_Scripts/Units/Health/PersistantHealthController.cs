@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DungeonDivers.Entity
+namespace DungeonDivers.Units
 {
     public class PersistantHealthController : AbstractHealthController
     {

@@ -1,6 +1,6 @@
 using System;
 using DungeonDivers.Arena;
-using DungeonDivers.Entity;
+using DungeonDivers.Units;
 using UnityEngine;
 using UnityEngine.UI;
 

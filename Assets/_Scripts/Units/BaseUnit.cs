@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace DungeonDivers.Entity
+namespace DungeonDivers.Units
 {
     [RequireComponent(typeof(Animator))]
-    public class BaseEntity : MonoBehaviour
+    public class BaseUnit : MonoBehaviour
     {
         private Animator animator;
         void Awake()

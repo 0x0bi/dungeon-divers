@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using DungeonDivers.Entity;
+using DungeonDivers.Units;
 using UnityEngine;
 
 namespace DungeonDivers.Arena
@@ -8,8 +8,8 @@ namespace DungeonDivers.Arena
     public class ArenaDataSO : ScriptableObject
     {
         [Header("Entity Data")]
-        public EntityDataSO playerData;
-        public List<EntityDataSO> enemyData;
+        public UnitDataSO playerData;
+        public List<UnitDataSO> enemyData;
 
         [Header("Arena Status")]
         public EArenaStates currentState = EArenaStates.START;
@@ -17,15 +17,15 @@ namespace DungeonDivers.Arena
         // Instantiated Player and Enemies
         public InstantiatedUnitStruct InstantiatedPlayer { get; internal set; }
         public List<InstantiatedUnitStruct> InstantiatedEnemies { get; internal set; }
-
+        
     }
 
     public struct InstantiatedUnitStruct
     {
-        public BaseEntity Entity { get; private set; }
+        public BaseUnit Entity { get; private set; }
         public AbstractHealthController HealthController { get; private set; }
 
-        public static InstantiatedUnitStruct New(BaseEntity entity, AbstractHealthController healthController)
+        public static InstantiatedUnitStruct New(BaseUnit entity, AbstractHealthController healthController)
         {
             return new()
             {

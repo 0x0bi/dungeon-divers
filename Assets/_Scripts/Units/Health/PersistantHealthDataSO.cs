@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DungeonDivers.Entity
+namespace DungeonDivers.Units
 {
     [CreateAssetMenu(fileName = "HealthData", menuName = "Units/PersistantHealthData")]
     public class PersistantHealthDataSO : ScriptableObject
