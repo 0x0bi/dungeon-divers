@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DungeonDivers.Entity
 {
-    [CreateAssetMenu(fileName = "NewEntityData", menuName = "Entity/Data")]
+    [CreateAssetMenu(fileName = "NewEntityData", menuName = "Units/UnitData")]
     public class EntityDataSO : ScriptableObject
     {
         [Header("Visualization")]
