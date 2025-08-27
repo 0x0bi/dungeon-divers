@@ -1,6 +1,5 @@
 using DungeonDivers.Utils;
 using UnityEditor;
-using UnityEditor.TerrainTools;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,39 +7,25 @@ namespace DungeonDivers.Arena
 {
     public class ArenaStateController : SingletonBase<ArenaStateController>
     {
-        public enum EArenaStates
-        {
-            START,
-            SPAWN_UNITS,
-            PLAYER_TURN,
-            ENEMY_PROCESS,
-            ENEMY_TURN,
-            PLAYER_PROCESS,
-        }
-
+        [SerializeField] private ArenaDataSO arenaData;
         // Emits on current state changes  
-        public UnityEvent<EArenaStates> OnCurrentArenaStateChange;
-
-        // Sets Current Arena State
-        [SerializeField] private EArenaStates currentArenaState;
-
-        // Getter for current Arena State;
-        public EArenaStates CurrentArenaState => currentArenaState;
+        public UnityEvent OnCurrentArenaStateChange;
 
 
         // Sets CurrentState and emits the change
         private void ChangeCurrentState(EArenaStates nextState)
         {
-            if (currentArenaState == nextState) return;
-            currentArenaState = nextState;
-            OnCurrentArenaStateChange.Invoke(currentArenaState);
+            if (this.arenaData.currentState == nextState) return;
+            this.arenaData.currentState = nextState;
+            Debug.Log(arenaData.currentState);
+            OnCurrentArenaStateChange.Invoke();
         }
 
         // Gets The Next State and changes the currents state
         public void GetNextState()
         {
             EArenaStates nextState = EArenaStates.START;
-            switch (currentArenaState)
+            switch (this.arenaData.currentState)
             {
                 case EArenaStates.START:
                     nextState = EArenaStates.SPAWN_UNITS;
@@ -64,10 +49,10 @@ namespace DungeonDivers.Arena
             ChangeCurrentState(nextState);
         }
 
-        // On Start Sets Current State To Start        
         public void Start()
         {
-            ChangeCurrentState(EArenaStates.SPAWN_UNITS);    
+            this.arenaData.currentState = EArenaStates.START;
+            ChangeCurrentState(EArenaStates.SPAWN_UNITS);
         }
 
     }

@@ -5,15 +5,34 @@ namespace DungeonDivers.UI.Arena
 {
     public class PlayerChoiceHandler : MonoBehaviour
     {
+        [SerializeField] private CanvasGroup group;
+        [SerializeField] private PlayerBattleController battleController;
 
-        public void OnCurrentChoiceChange(ArenaStateController.EArenaStates state)
+        public void OnPlayerChoiceEvent(bool active)
         {
-            this.gameObject.SetActive(state == ArenaStateController.EArenaStates.PLAYER_TURN);
+            if (active) EnableGroup();
+            else DisableGroup();
+        }
+
+        private void EnableGroup()
+        {
+            group.alpha = 1;
+            group.interactable = true;
+        }
+
+        private void DisableGroup()
+        {
+            group.alpha = 0;
+            group.interactable = false;
         }
 
         public void NextRound()
         {
-            ArenaStateController.Instance.GetNextState();
+            battleController.NextRound();
+        }
+        public void Attack()
+        {
+            battleController.AttackEnemy();
         }
     }
 }
