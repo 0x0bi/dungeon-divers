@@ -2,13 +2,13 @@
     "name": "DungeonDivers.Arena",
     "rootNamespace": "DungeonDivers.Arena",
     "references": [
-        "GUID:d06c702a30767d14ba182341674ae61c",
-        "GUID:2021b8d9aa905b94c8203b98bc75951b"
+        "GUID:2d4149bfd7e545d4fb30fb4b6082f8c7",
+        "GUID:d06c702a30767d14ba182341674ae61c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": true,
+    "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],

@@ -1,0 +1,17 @@
+{
+    "name": "DungeonDivers.Card",
+    "rootNamespace": "DungeonDivers.Card",
+    "references": [
+        "GUID:2d4149bfd7e545d4fb30fb4b6082f8c7",
+        "GUID:79ad2193969254fbd829729521e3eee3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

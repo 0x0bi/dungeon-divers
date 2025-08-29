@@ -1,76 +1,57 @@
+using System;
+using System.Collections;
+using Codice.Client.BaseCommands.Import;
 using DungeonDivers.Utils;
-using UnityEditor;
+using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace DungeonDivers.Arena
 {
     public class ArenaStateController : SingletonBase<ArenaStateController>
     {
-        [SerializeField] private ArenaDataSO arenaData;
-        // Emits on current state changes  
-        public UnityEvent OnCurrentArenaStateChange;
-
-
-        // Sets CurrentState and emits the change
-        private void ChangeCurrentState(EArenaStates nextState)
-        {
-            if (this.arenaData.currentState == nextState) return;
-            this.arenaData.currentState = nextState;
-            OnCurrentArenaStateChange.Invoke();
-        }
-
-        // Gets The Next State and changes the currents state
-        public void GetNextState()
-        {
-            EArenaStates nextState = EArenaStates.START;
-            switch (this.arenaData.currentState)
-            {
-                case EArenaStates.START:
-                    nextState = EArenaStates.SPAWN_UNITS;
-                    break;
-                case EArenaStates.SPAWN_UNITS:
-                    nextState = EArenaStates.PLAYER_TURN;
-                    break;
-                case EArenaStates.PLAYER_TURN:
-                    nextState = EArenaStates.ENEMY_PROCESS;
-                    break;
-                case EArenaStates.ENEMY_PROCESS:
-                    nextState = EArenaStates.ENEMY_TURN;
-                    break;
-                case EArenaStates.ENEMY_TURN:
-                    nextState = EArenaStates.PLAYER_PROCESS;
-                    break;
-                case EArenaStates.PLAYER_PROCESS:
-                    nextState = EArenaStates.PLAYER_TURN;
-                    break;
-            }
-            ChangeCurrentState(nextState);
-        }
-
+        [SerializeField] private ArenaContext context;
+        private bool isEventProcessing;
         public void Start()
         {
-            this.arenaData.currentState = EArenaStates.START;
-            ChangeCurrentState(EArenaStates.SPAWN_UNITS);
+            ChangeCurrentState(EArenaState.START);
         }
-
-    }
-
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(ArenaStateController))]
-    public class ArenaStateControllerEditor : Editor
-    {
-
-        public override void OnInspectorGUI()
+        public void GetNextState()
         {
-            base.OnInspectorGUI();
-            ArenaStateController stateManager = target as ArenaStateController;
-            if (GUILayout.Button("GetNextState"))
+            EArenaState nextState = context.CurrentState;
+            switch (context.CurrentState)
             {
-                stateManager.GetNextState();
+                case EArenaState.START:
+                    nextState = EArenaState.PLAYER_TURN;
+                    break;
+                case EArenaState.PLAYER_TURN:
+                    nextState = EArenaState.PLAYER_AFTER_TURN;
+                    break;
+                case EArenaState.PLAYER_AFTER_TURN:
+                    nextState = EArenaState.ENEMY_TURN;
+                    break;
+                case EArenaState.ENEMY_TURN:
+                    nextState = EArenaState.ENEMY_AFTER_TURN;
+                    break;
+                case EArenaState.ENEMY_AFTER_TURN:
+                    nextState = EArenaState.PLAYER_TURN;
+                    break;
             }
+
+            ChangeCurrentState(nextState);
+        }
+        private void ChangeCurrentState(EArenaState nextState)
+        {
+            StartCoroutine(ChangeNextState(nextState));
+        }
+
+        private IEnumerator ChangeNextState(EArenaState nextState)
+        {
+            yield return new WaitUntil(() => !isEventProcessing);
+            isEventProcessing = true;
+            if (context.CurrentState == nextState) yield return null;
+            context.CurrentState = nextState;
+            context.OnChangeCurrentState.Invoke();
+            isEventProcessing = false;
         }
     }
-#endif
 }
