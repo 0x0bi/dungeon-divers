@@ -6,6 +6,6 @@ namespace DungeonDivers.Core.Interfaces.Unit
     {
         public IHealth Health { get; }
         public IUnit BaseUnit { get; }
-        // public IStat Stat { get; protected set; }
+        public ITargetable TargetableUnit { get; }
     }
 }

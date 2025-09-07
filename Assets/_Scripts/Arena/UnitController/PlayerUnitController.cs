@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DungeonDivers.Core.Interfaces.Card;
+using DungeonDivers.Core.Interfaces.Unit;
 using DungeonDivers.Core.Interfaces.Units;
 using JetBrains.Annotations;
 using NUnit.Framework.Constraints;
@@ -17,18 +18,19 @@ namespace DungeonDivers.Arena
         [SerializeField] private int handCardAmount = 5;
         [SerializeField] private int totalEnergy;
         public UnityEvent<bool> IsPlayerTurnEvent;
-
+        public UnityEvent OnPlayerHandUpdate;
+        
         private ICardHolder playerCardHolder;
 
 
         private List<ICard> unusedCards;
-        private List<ICard> usedCards;
-        private List<ICard> currentHand = new();
+        private List<ICard> usedCards = new();
+        private Dictionary<string, ICard> currentHand = new();
 
 
         public int CurrentEnergy { get; private set; }
-        public IReadOnlyList<ICard> CurrentHand => currentHand;
-
+        public IReadOnlyDictionary<string, ICard> CurrentHand => currentHand;
+        public int MaxHands => this.handCardAmount; 
         public void OnChangeCurrentState()
         {
             if (context.CurrentState == EArenaState.PLAYER_TURN)
@@ -46,7 +48,7 @@ namespace DungeonDivers.Arena
 
         public void NextRound()
         {
-            usedCards.AddRange(currentHand);
+            usedCards.AddRange(currentHand.Values);
             currentHand = new();
             ArenaStateController.Instance.GetNextState();
         }
@@ -60,8 +62,6 @@ namespace DungeonDivers.Arena
         {
             CurrentEnergy = totalEnergy;
         }
-
-
         private void GetNewCurrentHand()
         {
             for (int i = 0; i < handCardAmount; i++)
@@ -76,9 +76,11 @@ namespace DungeonDivers.Arena
                 else
                     randomRange = 0;
 
-                this.currentHand.Append(this.unusedCards[randomRange]);
+                string id = Guid.NewGuid().ToString();
+                this.currentHand.Add(id, this.unusedCards[randomRange]);
                 this.unusedCards.RemoveAt(randomRange);
             }
+            this.OnPlayerHandUpdate.Invoke();
         }
 
 
